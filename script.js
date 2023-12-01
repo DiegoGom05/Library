@@ -21,11 +21,11 @@ function displayBooks() {
     `;
     myLibrary.forEach((book, index) => {
         table.innerHTML += `
-        <tr id=${index}>
+        <tr}>
             <td>${book.author}</td>
             <td>${book.title}</td>
             <td>${book.pages}</td>
-            <td><button onClick='deleteRow(this)'>Delete</button></td>
+            <td><button id='${index}' onClick='deleteRow(this)'>Delete</button></td>
         </tr>`;
     });
 }
@@ -60,6 +60,7 @@ form.addEventListener('submit', function(event){
 })
 
 function deleteRow(button){
+    console.log(button.id);
     myLibrary.splice(parseInt(button.id), 1);
     displayBooks();
 }
