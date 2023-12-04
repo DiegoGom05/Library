@@ -1,15 +1,24 @@
-const myLibrary = [];
+class Library {
+    constructor() {
+        this.books = [];
+    }
+    addBook(book){
+        this.books.push(book);
+    }
 
-function Book(author, title, pages) {
-    this.author = author;
-    this.title = title;
-    this.pages = pages;
+    removeBook(index) {
+        this.books.splice(index, 1);
+    }
 }
 
-function addBookToLibrary(book) {
-    myLibrary.push(book);
+class Book {
+    constructor(author, title, pages){
+        this.author = author;
+        this.title = title;
+        this.pages = pages;
+    }
 }
-
+ 
 function displayBooks() {
     table.innerHTML = `
         <tr>
@@ -19,7 +28,7 @@ function displayBooks() {
             <th>Action</th>
         </tr>
     `;
-    myLibrary.forEach((book, index) => {
+    library.books.forEach((book, index) => {
         table.innerHTML += `
         <tr}>
             <td>${book.author}</td>
@@ -30,7 +39,7 @@ function displayBooks() {
     });
 }
  
-
+const library = new Library();
 const btn = document.querySelector('#btn');
 const form = document.querySelector('form');
 const table = document.querySelector("table");
@@ -50,7 +59,7 @@ form.addEventListener('submit', function(event){
     container.style.display = 'flex';
     event.preventDefault();
     newBook = new Book(author.value, title.value, pages.value);
-    addBookToLibrary(newBook);
+    library.addBook(newBook);
     displayBooks(newBook);
     
     author.value = '';
@@ -61,6 +70,7 @@ form.addEventListener('submit', function(event){
 
 function deleteRow(button){
     console.log(button.id);
-    myLibrary.splice(parseInt(button.id), 1);
+    library.removeBook(button.id);
+    
     displayBooks();
 }
